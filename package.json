@@ -1,0 +1,34 @@
+{
+  "name": "inno",
+  "version": "0.0.1",
+  "description": "Just an innovator clone. But better.",
+  "main": "server/app.js",
+  "dependencies": {
+    "ive-b": "^1.0.3",
+    "ive-f": "^2.2.9"
+  },
+  "devDependencies": {
+    "babelify": "^6.4.0",
+    "browser-sync": "^2.9.11",
+    "browserify": "^11.2.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-sequence": "^0.4.1",
+    "nodemon": "^1.7.3",
+    "sequence": "^3.0.0"
+  },
+  "maintainers": [
+    {
+      "name": "justalex",
+      "email": "madseahorse@yandex.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ordinarygithubuser/inno"
+  },
+  "author": {
+    "name": "justalex"
+  },
+  "license": "MIT"
+}
