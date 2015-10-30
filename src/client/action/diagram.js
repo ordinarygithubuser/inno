@@ -1,5 +1,11 @@
 import { Action } from 'ive-f';
 
+export const LoadDiagram = new Action();
+
+export const CreateDiagram = new Action();
+
+export const UpdateDiagram = new Action();
+
 /**
  * Nodes
  */

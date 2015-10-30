@@ -26,7 +26,7 @@ var conf = {
 	},
 	babelify: {
 		stage: 0,
-		sourceMapRelative: 'D:/workspace_node/inno'
+		sourceMapRelative: 'D:\\workspace_node\\inno'
 	}
 };
 

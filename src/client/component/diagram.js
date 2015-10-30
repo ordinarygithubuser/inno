@@ -15,6 +15,6 @@ export default class Diagram extends Component {
 	 * TODO render elements received from props (graph)
 	 */
 	render () {
-		return <canvas className="diagram" />
+		return <canvas className="diagram" droppable={true} />
 	}
 }

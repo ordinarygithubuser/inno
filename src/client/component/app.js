@@ -1,7 +1,9 @@
 import { React, StoreComponent } from 'ive-f';
 
-import SideBar from './side-bar';
+import SideBar from './sidebar';
 import Diagram from './diagram';
+import Context from './context';
+import Auth from './auth';
 
 /**
  * Ties all data stores and view components.
@@ -11,7 +13,14 @@ export default class App extends StoreComponent {
 	constructor (props) {
 		super(props);
 
-		this.connect(this.props.diagram, (s) => { return { diagram: s }});
+		this.connect(props.user);
+		this.connect(props.diagram);
+		this.connect(props.context);
+		this.connect(props.project);
+	}
+
+	renderApp(...components) {
+		return <div className="app">{components}</div>;
 	}
 
 	/**
@@ -20,10 +29,16 @@ export default class App extends StoreComponent {
 	 * 	logged in, otherwise the authorization will be shown.
 	 */
 	render () {
-		let { diagram } = this.state;
+		let { diagram, context, user } = this.state;
 
-		return <div className="app">
-			<SideBar />
-		</div>;
+		if (user.name == null) {
+			return this.renderApp(<Auth />);
+		} else {
+			return this.renderApp(
+				<SideBar {...this.state} />,
+				<Diagram diagram={diagram} />,
+				<Context context={context} />
+			);
+		}
 	}
 }
