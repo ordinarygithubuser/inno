@@ -17,13 +17,14 @@ export default class DiagramMenu extends Component {
 	}
 
 	renderLoad () {
-		let { diagrams } = this.props;
-		let onClick = () => this.setContext(DiagramLoadContext, { diagrams });
+		let { project, diagrams } = this.props;
+		let onClick = () => this.setContext(DiagramLoadContext, { project, diagrams });
 		return <button onClick={onClick}>Load</button>;
 	}
 
 	renderCreate () {
-		let onClick = () => this.setContext(DiagramCreateContext);
+		let { project } = this.props;
+		let onClick = () => this.setContext(DiagramCreateContext, { project });
 		return <button onClick={onClick}>Create</button>;
 	}
 

@@ -4,6 +4,8 @@ html, body {
     margin: 0;
     padding: 0;
     font: 17px 'Open Sans', verdana, arial;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .app {
@@ -27,4 +29,47 @@ html, body {
 .app .diagram {
     display: flex;
     flex-grow: 1;
+}
+
+.list {
+    border: 1px solid white;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+.list .item {
+    padding: 5px 10px;
+}
+
+.list .item:hover {
+    cursor:pointer;
+}
+
+.list .item.selected {
+    background: white;
+    color: #414B56;
+}
+
+/** rows */
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+}
+
+.row label {
+    display: flex;
+    min-width: 70px;
+    line-height: 35px;
+}
+
+.row span {
+    display: flex;
+    line-height: 35px;
+    font-style: italic;
+}
+
+.row button {
+    margin-left: 70px;
 }

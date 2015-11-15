@@ -1,0 +1,300 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    font: 18px arial, verdana;
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    background: rgb(250, 250, 250);
+    font-size: 17px;
+}
+
+body, html, div, span, input, select, textarea,
+button, h1, h2, h3, h4, h5, h6, canvas, a {
+    font-family: 'Open Sans', 'FontAwesome', sans-serif;
+    box-sizing: border-box;
+    font-size: 17px;
+}
+
+h2 {
+    font-weight: 200;
+    font-size: 19px;
+    color: white;
+    padding: 0;
+    margin: 0 0 10px;
+}
+
+input {
+    padding: 4px;
+}
+
+button {
+    color: rgb(71, 71, 71);
+    height: 32px;
+    border-radius: 4px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+    padding: 0 13px;
+    font-weight: bold;
+    border: 1px solid #c5c5c5;
+    border-bottom-color: #bcbcbc;
+    background-color: #fafafa;
+    background-image: -webkit-linear-gradient(top, #fafafa 2%, #efefef 98%);
+    background-image: linear-gradient(to bottom,#fafafa 2%, #efefef 98%);
+    margin-right: 10px;
+}
+
+button.primary {
+    color: #ecf2f8;
+    border: 1px solid #1362b1;
+    border-top-color: #156ab3;
+    border-bottom-color: #1156a8;
+    box-shadow: inset 0 1px 0 #4d98e6, inset 0 -1px 0 #166bca, 0 2px 3px rgba(0, 0, 0, 0.05);
+    background-color: #197de1;
+    background-image: -webkit-linear-gradient(top, #1b87e3 2%, #166ed5 98%);
+    background-image: linear-gradient(to bottom,#1b87e3 2%, #166ed5 98%);
+}
+
+button:hover, .button:hover {
+    cursor: pointer;
+}
+
+.button:hover {
+    color: #197de1;
+    border-color: #197de1;
+}
+
+.app {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.main {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
+    color: rgb(70, 70, 70);
+}
+
+/* selected element in a list */
+.active {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 10px 0;
+    padding: 0 3px;
+    border: 1px solid rgb(213, 213, 213);
+    border-radius: 4px;
+    font-weight: bold;
+    background: rgb(255, 255, 255);
+    box-shadow: inset rgba(0, 0, 0, 0.0470588) 0 2px 3px 0;
+    color: rgb(70, 70, 70);
+}
+
+table {
+    text-align: left;
+    border-collapse: collapse;
+}
+
+table thead {
+    position: relative;
+    top: 0;
+}
+
+table td, table th {
+    padding: 5px;
+    color: rgb(111, 111, 111);
+}
+
+table th {
+    color: rgb(125, 125, 125);
+    background-image: linear-gradient(rgb(250, 250, 250) 2%, rgb(239, 239, 239) 98%);
+}
+
+table tr td:last-child, table tr th:last-child {
+    text-align: center;
+}
+
+table td {
+    font-size: 16px;
+}
+
+table tbody tr:hover {
+    cursor: pointer;
+}
+
+table tbody tr:nth-child(even) {
+    cursor: pointer;
+    background: rgb(245, 245, 245);
+}
+
+table tbody tr.active td {
+    color: rgb(255, 255, 255);
+    -webkit-user-select: text;
+    background: rgb(25, 125, 225) linear-gradient(rgb(27, 135, 227) 2%, rgb(22, 110, 213) 98%);
+    cursor: default;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.icon-input {
+    border: 1px solid rgb(213, 213, 213);
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0 2px 3px 0;
+    padding: 8px;
+    margin-bottom: 10px;
+    background: white;
+}
+
+.icon-input i {
+    display: inline-block;
+    width: 25px;
+    opacity: 0.6;
+    color: black;
+}
+
+.icon-input input {
+    border: none;
+    outline: none;
+}
+
+.dropdown {
+    display: flex;
+    flex-flow: row nowrap;
+    border: 1px solid rgb(213, 213, 213);
+    border-radius: 4px;
+}
+
+.dropdown .inner {
+    display: flex;
+    flex-grow: 1;
+    flex-flow: row nowrap;
+}
+
+.dropdown .selected {
+    display: flex;
+    flex-grow: 1;
+    background-color: rgb(255, 253, 250);
+}
+
+.dropdown .selected .fa {
+    margin: 8px;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.dropdown .selected span {
+    display: inline-block;
+    padding: 2px;
+    margin: 8px 8px 8px 0;
+    font-size: 14px;
+}
+
+.dropdown .fa-arrow-circle-down {
+    margin: 5px;
+    font-size: 22px;
+    line-height: 30px;
+}
+
+.dropdown i:hover {
+    color: #156ab3;
+    cursor: pointer;
+}
+
+.dropdown .options {
+    position: absolute;
+    border: 1px solid rgb(213, 213, 123);
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0 2px 3px 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: rgb(255, 253, 250);
+}
+
+.dropdown .options .option {
+    font-size: 14px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+}
+.dropdown .options .option span {
+    font-size: 16px;
+}
+
+.dropdown .options .option i {
+    font-size: 18px;
+    margin-right: 10px;
+    text-shadow: white  0 0 3px;
+}
+
+
+.dropdown .options .option:hover {
+    background-image: linear-gradient(to bottom,rgb(27, 135, 227) 2%, rgb(22, 110, 213) 98%);
+    color: rgb(236, 242, 248);
+    cursor: pointer;
+}
+
+i.button {
+    border: 1px solid rgb(213, 213, 213);
+    border-radius: 40px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0 2px 3px 0;
+    padding: 5px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+}
+
+.tab {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px solid white;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.tab .head {
+    padding: 5px;
+    color: #414B56;
+    background: white;
+    font-weight: bold;
+}
+
+.tab .inner {
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 5px;
+}
+
+.menu {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
+}
+
+.menu button {
+    display: flex;
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: white;
+    margin: 0;
+}
+
+.form {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.form label, .form input, .form textarea {
+    margin-bottom: 10px;
+}
+
+.form button {
+    margin-top: 5px;
+    width: 100px;
+}

@@ -32,12 +32,12 @@ export default class App extends StoreComponent {
 		let { diagram, context, user } = this.state;
 
 		if (user.name == null) {
-			return this.renderApp(<Auth />);
+			return this.renderApp(<Auth key={0} />);
 		} else {
 			return this.renderApp(
-				<SideBar {...this.state} />,
-				<Diagram diagram={diagram} />,
-				<Context context={context} />
+				<SideBar key={0} {...this.state} />,
+				<Diagram key={1} diagram={diagram} />,
+				<Context key={2} context={context} />
 			);
 		}
 	}

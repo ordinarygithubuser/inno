@@ -1,29 +1,47 @@
-import { React, StoreComponent } from 'ive-f';
-import ProjectLoadContext from './load';
-import ProjectCreateContext from './create';
-import ProjectUpdateContext from './update';
-import { SetContext } from '../../action/context';
+import { React, Component } from 'ive-f';
+import { CreateNode } from '../../action/diagram';
+import Draggable from '../draggable';
 
-export default class ProjectMenu extends StoreComponent {
+class DragItem extends Component {
 	constructor (props) {
 		super(props);
+		this.dType = 'node'
 	}
 
-	setContext (Component, data) {
-		SetContext.trigger({ Component, data });
+	render () {
+		return <div>{this.props.name}</div>;
+	}
+}
+
+export default class ProjectMenu extends Component {
+	constructor (props) {
+		super(props);
+		this.own('onDrag', 'onDrop')
 	}
 
-	renderLoad () {
-		let { projects } = this.props;
-		let onClick = () => this.setContext(ProjectLoadContext, { projects });
-		return <button onClick={onClick}>Load</button>;
+	onDrag () {}
+
+	onDrop (props, event) {
+		CreateNode.trigger({
+			x: event.pageX,
+			y: event.pageY,
+			type: props.name
+		});
+	}
+
+	createDragItem (name, type) {
+		let Comp = Draggable(DragItem, this.onDrag, this.onDrop);
+		return <Comp name={name} type={type} />;
 	}
 
 	render () {
 		return <div className="menu">
-			{this.renderLoad()}
-			{this.renderCreate()}
-			{this.renderEdit()}
+			{this.createDragItem('Action', 'node')}
+			{this.createDragItem('Component', 'node')}
+			{this.createDragItem('Store', 'node')}
+			{this.createDragItem('Service', 'node')}
+			{this.createDragItem('Server', 'node')}
+			{this.createDragItem('Table', 'node')}
 		</div>;
 	}
 }
