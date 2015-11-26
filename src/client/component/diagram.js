@@ -108,13 +108,15 @@ export default class Diagram extends Component {
 
 	renderGraph () {
 		let { context } = this.state;
-		let { nodes, node } = this.props;
+		let { nodes, node, diagram } = this.props;
 
 		context.save();
 		context.font = '15px arial';
 		context.lineWidth = 0.5;
 
-		nodes.map(current => {
+        nodes.filter(node => {
+            return node.diagramId == diagram.id;
+        }).map(current => {
 			let { id, name, x, y, width, height, type } = current;
 
 			if (x % 1 == 0) x += 0.5;

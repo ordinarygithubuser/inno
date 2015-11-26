@@ -333,6 +333,10 @@ i.button {
     width: 110px;
 }
 
+.form h2 {
+    font-weight: bold;margin-bottom: 20px;
+}
+
 .list .item {
     padding: 5px 10px;
     background: rgb(255, 255, 255);

@@ -31,10 +31,6 @@ html, body {
     flex-grow: 1;
 }
 
-.context label {
-    display: inline-flex;
-}
-
 .components {
     display: flex;
     flex-flow: row wrap;
@@ -85,18 +81,24 @@ html, body {
 
 .edge-context label {
     display: inline-block;
-    width: 67px;
+    min-width: 75px;
 }
 
 .edge-context button {
     display: inline-block;
     width: 100px;
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 10px;
-    margin-left: 67px;
+    margin-left: 75px;
 }
 
 .edge-context select {
     display: flex;
     width: 212px;
+}
+
+.components label {
+    display: block;
+    width: 100%;
+    margin: 5px;
 }

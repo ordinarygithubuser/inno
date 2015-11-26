@@ -41,10 +41,14 @@ export default class ComponentMenu extends Component {
 
 	render () {
 		return <div className="components">
-			{this.createDragItem('Action', 'node')}
-			{this.createDragItem('Component', 'node')}
+            <label>Client</label>
+            {this.createDragItem('Action', 'node')}
+            {this.createDragItem('Component', 'node')}
 			{this.createDragItem('Store', 'node')}
-			{this.createDragItem('Service', 'node')}
+            {this.createDragItem('Transaction', 'node')}
+            <label>Server</label>
+            {this.createDragItem('Database', 'node')}
+            {this.createDragItem('Service', 'node')}
 			{this.createDragItem('Server', 'node')}
 			{this.createDragItem('Table', 'node')}
 		</div>;

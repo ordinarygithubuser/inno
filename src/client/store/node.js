@@ -11,38 +11,20 @@ let CONSTRAINTS = {
 	height: 100
 };
 
-let ALL_NODES = [];
-
-function updateAll (nodes) {
-	ALL_NODES = ALL_NODES.filter(current => {
-		return !contains(nodes, current);
-	}).concat(nodes);
-}
-
-function contains (nodes, node) {
-	for (let i = 0; i < nodes.length; i++) {
-		if (nodes[i].id == node.id) return true;
-	}
-	return false;
-}
-
 export default class NodeStore extends Store {
 	constructor (nodes = [], node = null) {
 		super({ nodes, node });
 
-		this.listenTo(Actions.LoadNodes, this.load);
+        this.listenTo(Actions.SetNode, this.setNode);
 		this.listenTo(Actions.CreateNode, this.create);
 		this.listenTo(Actions.UpdateNode, this.update);
 		this.listenTo(Actions.SetPosition, this.setPosition);
 	}
 
-	load (data = { id: null }) {
-		this.state.nodes = ALL_NODES.filter(current => {
-			return current.diagramId == data.id;
-		});
-		this.state.node = null;
-		this.notify();
-	}
+    setNode (node = null) {
+        this.state.node = node;
+        this.notify();
+    }
 
 	create (data = { x: 0, y: 0, width: 0, height: 0 }) {
 		data.x -= CONSTRAINTS.x;
@@ -53,7 +35,6 @@ export default class NodeStore extends Store {
 		if (this.isInside(data.x, data.y, data.width, data.height)) {
 			data.id = NID.next();
 			this.state.nodes.push(data);
-			ALL_NODES.push(data);
 			this.notify();
 		}
 	}
@@ -66,7 +47,6 @@ export default class NodeStore extends Store {
 			}
 			return current;
 		});
-		updateAll(this.state.nodes);
 		this.notify();
 	}
 
