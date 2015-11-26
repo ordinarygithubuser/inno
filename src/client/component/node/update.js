@@ -1,42 +1,60 @@
 import { React, Component, merge } from 'ive-f';
-import { UpdateNode } from '../../action/diagram';
+import { UpdateNode } from '../../action/node';
+
+function diff (o1, o2) {
+	return (o1 && o2) && (
+	       o1.id != o2.id ||
+	       o1.name != o2.name ||
+		   o1.type != o2.type ||
+		   o1.x != o2.x ||
+		   o1.y != o2.y ||
+		   o1.width != o2.width ||
+		   o1.height != o2.height);
+}
 
 export default class NodeContext extends Component {
 	constructor (props) {
 		super(props);
-		this.state = { node: props.node };
+		this.state = {
+			input: props.node
+		};
 	}
 
-	componentDidUpdate () {
-		if (this.props.node.id != this.state.node.id) {
-			this.setNode(this.props.node);
+	componentDidUpdate (prevProps) {
+		let props = this.props;
+
+		if (diff(prevProps.node, props.node)) {
+			this.setState({ input: props.node });
 		}
 	}
 
-	setNode (data) {
-		this.setState({ node: merge(this.state.node, data) });
+	update () {
+		UpdateNode.trigger(this.state.input);
 	}
 
-	update () {
-		let id = this.props.node.id;
-		let { name, x, y, width, height } = this;
+	setNode (data) {
+		this.setState({ input: merge(this.state.input, data) });
+	}
 
-		UpdateNode.trigger(this.state.node);
+	setParsed (value, name) {
+		let parsed = parseInt(value, 10);
+		let data = {};
+		data[name] = parsed;
+		if (!isNaN(parsed)) this.setNode(data);
 	}
 
 	setName (e) { this.setNode({ name: e.target.value }); }
 	setType (e) { this.setNode({ type: e.target.value }); }
-	setX (e) { this.setNode({ x: parseInt(e.target.value, 10) }); }
-	setY (e) { this.setNode({ y: parseInt(e.target.value, 10) }); }
-	setWidth (e) { this.setNode({ width: parseInt(e.target.value, 10) }); }
-	setHeight (e) { this.setNode({ height: parseInt(e.target.value, 10) }); }
+	setX (e) { this.setParsed(e.target.value, 'x'); }
+	setY (e) { this.setParsed(e.target.value, 'y'); }
+	setWidth (e) { this.setParsed(e.target.value, 'width'); }
+	setHeight (e) { this.setParsed(e.target.value, 'height'); }
 
 	renderForm () {
-		let { name, x, y, width, height, type } = this.props.node;
+		let { name, x, y, width, height, type } = this.state.input;
 
 		return <div className="form">
-			<h2>{`Node`}</h2>
-
+			<h2>Node</h2>
 			<div className="row">
 				<label>Name</label>
 				<input value={name} onChange={this.setName.bind(this)} />
@@ -62,25 +80,9 @@ export default class NodeContext extends Component {
 				<input value={height}  onChange={this.setHeight.bind(this)} />
 			</div>
 			<div className="row">
-				<label>Edges</label>
-				{this.renderEdgeList()}
-			</div>
-			<div className="row">
 				<button onClick={this.update.bind(this)}>Change</button>
 			</div>
 		</div>;
-	}
-
-	renderEdgeList (node) {
-		let { edges } = this.props.node;
-
-		if (edges.length == 0) {
-			return <span>No connections found.</span>;
-		}
-
-		return <div className="edge-list">{
-			edges.map(edge => { return <div className="edge">{edge.type}</div>; })
-		}</div>;
 	}
 
 	render () {

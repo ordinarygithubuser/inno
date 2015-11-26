@@ -1,5 +1,5 @@
 import { React, Component } from 'ive-f';
-import { CreateNode } from '../../action/diagram';
+import { CreateNode } from '../../action/node';
 import Draggable from '../draggable';
 
 class DragItem extends Component {
@@ -9,11 +9,11 @@ class DragItem extends Component {
 	}
 
 	render () {
-		return <div>{this.props.name}</div>;
+		return <div className="node">{this.props.name}</div>;
 	}
 }
 
-export default class ProjectMenu extends Component {
+export default class ComponentMenu extends Component {
 	constructor (props) {
 		super(props);
 		this.own('onDrag', 'onDrop')
@@ -22,11 +22,16 @@ export default class ProjectMenu extends Component {
 	onDrag () {}
 
 	onDrop (props, event) {
-		CreateNode.trigger({
-			x: event.pageX,
-			y: event.pageY,
-			type: props.name
-		});
+		let { diagram } =  this.props;
+
+		if (diagram) {
+			CreateNode.trigger({
+				diagramId: diagram.id,
+				x: event.pageX,
+				y: event.pageY,
+				type: props.name
+			});
+		}
 	}
 
 	createDragItem (name, type) {
@@ -35,7 +40,7 @@ export default class ProjectMenu extends Component {
 	}
 
 	render () {
-		return <div className="menu">
+		return <div className="tools">
 			{this.createDragItem('Action', 'node')}
 			{this.createDragItem('Component', 'node')}
 			{this.createDragItem('Store', 'node')}
