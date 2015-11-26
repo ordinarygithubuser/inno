@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Just an innovator clone. But better.",
   "main": "server/app.js",
+  "scripts": {
+    "dev": "set NODE_ENV=development&&gulp",
+    "prod": "set NODE_ENV=production&&gulp"
+  },
   "dependencies": {
     "ive-b": "^1.0.3",
     "ive-f": "^2.2.9"
@@ -11,6 +15,7 @@
     "babelify": "^6.4.0",
     "browser-sync": "^2.9.11",
     "browserify": "^11.2.0",
+    "envify": "^3.4.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.3.0",
     "gulp-sequence": "^0.4.1",

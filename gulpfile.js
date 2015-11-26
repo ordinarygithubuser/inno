@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var fs = require('fs');
+var envify = require('envify/custom');
 var babel = require('gulp-babel');
 var browserify = require('browserify');
 var babelify = require('babelify');
@@ -26,14 +27,21 @@ var conf = {
 	},
 	babelify: {
 		stage: 0,
-		sourceMapRelative: 'D:\\workspace_node\\inno'
+		sourceMapRelative: 'C:\\Users\\alex\\workspace\\node\\inno-js'
+		//sourceMapRelative: 'D:\\workspace_node\\inno'
 	}
+};
+
+var globals = {
+	ENV: process.env.NODE_ENV,
+	DEV: process.env.NODE_ENV == 'development'
 };
 
 gulp.task('build:client', function () {
 	return browserify(paths.client.main, conf.browserify)
 		.transform(babelify.configure(conf.babelify))
-		.bundle()
+        .transform(envify(globals))
+        .bundle()
 		.on('error', function (err) { console.log('Syntax Error : ' + err.message + ' (' + err.lineNumber + ')'); })
 		.pipe(fs.createWriteStream(paths.client.dist));
 });
@@ -77,7 +85,10 @@ gulp.task('nodemon', function (cb) {
 			'src/*',
 			'client/*',
 			'gulpfile.js',
-			'package.json'
+			'package.json',
+			'LICENSE',
+			'README.md',
+			'.gitignore'
 		]
 	});
 	cb();

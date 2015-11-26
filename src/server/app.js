@@ -7,7 +7,7 @@ import UserRoute from './routes/user';
 let server = new Server(conf);
 
 server.start(async () => {
-	await server.setupTables(UserTable);
+    await server.setupTables(UserTable);
 	server.setRoutes(UserRoute);
 	console.log('app running');
 });

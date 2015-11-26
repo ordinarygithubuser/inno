@@ -20,7 +20,7 @@ button, h1, h2, h3, h4, h5, h6, canvas, a {
 h2 {
     font-weight: 200;
     font-size: 19px;
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 0;
     margin: 0 0 10px;
 }
@@ -31,16 +31,28 @@ button {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
     padding: 0 13px;
     font-weight: bold;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     color: #414B56;
-    border: 1px solid white;
+    border: 1px solid rgb(255, 255, 255);
     margin-right: 10px;
+}
+
+button.primary {
+    background: rgb(25, 125, 225) linear-gradient(rgb(27, 135, 227) 2%, rgb(22, 110, 213) 98%);
+    color: rgb(255, 255, 255);
+    border: none;
+}
+
+button.primary:hover {
+    color: rgb(25, 125, 225);
+    background: rgb(255, 255, 255);
+    border: none;
 }
 
 button:hover {
     cursor: pointer;
     background-color: #414B56;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .app {
@@ -63,7 +75,7 @@ button:hover {
     flex-grow: 1;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    rgb(255, 255, 255);-space: nowrap;
     margin: 10px 0;
     padding: 0 3px;
     border: 1px solid rgb(213, 213, 213);
@@ -117,7 +129,7 @@ table tbody tr.active td {
     background: rgb(25, 125, 225) linear-gradient(rgb(27, 135, 227) 2%, rgb(22, 110, 213) 98%);
     cursor: default;
     vertical-align: middle;
-    white-space: nowrap;
+    rgb(255, 255, 255);-space: nowrap;
 }
 
 .icon-input {
@@ -126,7 +138,7 @@ table tbody tr.active td {
     box-shadow: rgba(0, 0, 0, 0.0470588) 0 2px 3px 0;
     padding: 8px;
     margin-bottom: 10px;
-    background: white;
+    background: rgb(255, 255, 255);
 }
 
 .icon-input i {
@@ -206,7 +218,7 @@ table tbody tr.active td {
 .dropdown .options .option i {
     font-size: 18px;
     margin-right: 10px;
-    text-shadow: white  0 0 3px;
+    text-shadow: rgb(255, 255, 255) 0 0 3px;
 }
 
 
@@ -231,7 +243,7 @@ i.button {
 .tab {
     display: flex;
     flex-flow: column nowrap;
-    border: 1px solid white;
+    border: 1px solid rgb(255, 255, 255);
     border-radius: 2px;
     margin-bottom: 10px;
 }
@@ -239,7 +251,7 @@ i.button {
 .tab .head {
     padding: 5px;
     color: #414B56;
-    background: white;
+    background: rgb(255, 255, 255);
     font-weight: bold;
 }
 
@@ -258,7 +270,7 @@ i.button {
     display: flex;
     flex-flow: row nowrap;
     flex-grow: 1;
-    background: white;
+    background: rgb(255, 255, 255);
 }
 
 .menu .options .option {
@@ -274,7 +286,7 @@ i.button {
 }
 
 .menu .options .selected {
-    color: white;
+    color: rgb(255, 255, 255);
     background: #414B56;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
@@ -323,8 +335,8 @@ i.button {
 
 .list .item {
     padding: 5px 10px;
-    background: white;
-    border: 1px solid white;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
     color: #414B56;
 }
 
@@ -340,14 +352,14 @@ i.button {
 
 .list .item:hover {
     background: #414B56;
-    color: white;
+    color: rgb(255, 255, 255);
     cursor: pointer;
 }
 
 .list .item.selected {
     font-weight: bold;
     background-image: linear-gradient(to bottom,rgb(27, 135, 227) 2%, rgb(22, 110, 213) 98%);
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .list .item.selected:hover {
@@ -359,5 +371,5 @@ i.button {
 }
 
 .options .option.selected:hover {
-    color: white;
+    color: rgb(255, 255, 255);
 }

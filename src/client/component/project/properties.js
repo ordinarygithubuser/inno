@@ -21,8 +21,8 @@ export default class Properties extends Component {
 	}
 
 	renderSelection (array) {
-		return array.map(current => {
-			return <option value={current}>{current}</option>;
+		return array.map((current, key) => {
+			return <option key={key} value={current}>{current}</option>;
 		});
 	}
 
