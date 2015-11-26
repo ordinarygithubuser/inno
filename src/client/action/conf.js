@@ -1,7 +1,5 @@
 import { Action } from 'ive-f';
 
-export const CreateEdge = new Action();
+export const SetLanguage = new Action();
 
-export const UpdateEdge = new Action();
-
-export const DeleteEdge = new Action();
+export const SetMode = new Action();

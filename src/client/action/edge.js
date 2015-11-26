@@ -1,3 +1,4 @@
+import { Action } from 'ive-f';
 
 export const CreateEdge = new Action();
 

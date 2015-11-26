@@ -1,23 +1,14 @@
 import { React, Component } from 'ive-f';
-
-let LANGUAGES = [ 'Javascript', 'Java', 'Scala' ];
-let MODELS = [ 'None', 'JSON', 'XML' ];
+import { Lang, Mode } from '../../const/conf';
+import * as Actions from '../../action/conf';
 
 export default class Properties extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			language: LANGUAGES[0],
-			model: MODELS[0]
-		};
-	}
-
 	setLanguage (e) {
-		this.setState({ language: e.target.value });
-	}
+	    Actions.SetLanguage.trigger(e.target.value);
+    }
 
 	setModel (e) {
-		this.setState({ model: e.target.value });
+        Actions.SetMode.trigger(e.target.value);
 	}
 
 	renderSelection (array) {
@@ -27,16 +18,16 @@ export default class Properties extends Component {
 	}
 
 	render () {
-		let { language, model } = this.state;
+		let { lang, model } = this.props.conf;
 
 		return <div className="generate form">
 			<label>Language</label>
-			<select value={language} onChange={this.setLanguage.bind(this)}>
-				{this.renderSelection(LANGUAGES)}
+			<select value={lang} onChange={this.setLanguage.bind(this)}>
+				{this.renderSelection(Lang)}
 			</select>
 			<label>Model File</label>
 			<select value={model} onChange={this.setModel.bind(this)}>
-				{this.renderSelection(MODELS)}
+				{this.renderSelection(Mode)}
 			</select>
 			<button>Save</button>
 		</div>;

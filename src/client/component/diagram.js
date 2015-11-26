@@ -108,12 +108,13 @@ export default class Diagram extends Component {
 
 	renderGraph () {
 		let { context } = this.state;
-		let { nodes, node, diagram } = this.props;
+		let { edges, nodes, node, diagram } = this.props;
 
 		context.save();
 		context.font = '15px arial';
 		context.lineWidth = 0.5;
 
+        // TODO Auslagern!
         nodes.filter(node => {
             return node.diagramId == diagram.id;
         }).map(current => {
@@ -140,7 +141,20 @@ export default class Diagram extends Component {
 			context.closePath();
 		});
 		context.restore();
-	}
+
+        context.save();
+        context.strokeStyle = 'rgb(100, 100, 100)';
+        // TODO: auslagern!
+        edges.map(edge => {
+            let { source, target } = edge;
+            context.beginPath();
+            context.moveTo(source.x, source.y);
+            context.lineTo(target.x, target.y);
+            context.stroke();
+            context.closePath();
+        });
+        context.restore();
+    }
 
 	/**
 	 * TODO canvas width and height

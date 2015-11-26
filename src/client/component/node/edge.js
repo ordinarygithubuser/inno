@@ -1,16 +1,5 @@
 import { React, Component, merge } from 'ive-f';
-import { UpdateNode } from '../../action/node';
-
-function diff (o1, o2) {
-	return (o1 && o2) && (
-	       o1.id != o2.id ||
-	       o1.name != o2.name ||
-		   o1.type != o2.type ||
-		   o1.x != o2.x ||
-		   o1.y != o2.y ||
-		   o1.width != o2.width ||
-		   o1.height != o2.height);
-}
+import { CreateEdge } from '../../action/edge';
 
 export default class NodeEdgeContext extends Component {
 	constructor (props) {
@@ -24,8 +13,8 @@ export default class NodeEdgeContext extends Component {
 	}
 
 	create () {
-		//UpdateNode.trigger(this.state.input);
-	}
+	    CreateEdge.trigger(this.state.nodes);
+    }
 
 	switchNodes (e) {
 		let { source, target } = this.state.nodes;
