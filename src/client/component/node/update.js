@@ -12,7 +12,7 @@ function diff (o1, o2) {
 		   o1.height != o2.height);
 }
 
-export default class NodeContext extends Component {
+export default class UpdateNodeContext extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

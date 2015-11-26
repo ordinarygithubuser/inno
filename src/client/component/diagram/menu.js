@@ -1,47 +1,40 @@
 import { React, Component } from 'ive-f';
+import Menu from '../menu';
 import DiagramLoadContext from './load';
 import DiagramCreateContext from './create';
 import DiagramUpdateContext from './update';
-import { SetContext } from '../../action/context';
+
+function Option ( name, icon, component) {
+	return { name, icon, component };
+}
+
+let OPTIONS = {
+	LOAD: Option('Load', 'list', DiagramLoadContext),
+	NEW: Option('New', 'plus-circle', DiagramCreateContext),
+	EDIT: Option('Edit', 'pencil', DiagramUpdateContext)
+};
 
 export default class DiagramMenu extends Component {
 	constructor (props) {
 		super(props);
+		this.own('select');
+		this.state = {
+			selected: OPTIONS.LOAD
+		};
 	}
 
-	/**
-	 * TODO: abstract this
-	 */
-	setContext (Component, data) {
-		SetContext.trigger({ Component, data });
-	}
-
-	renderLoad () {
-		let { project, diagrams } = this.props;
-		let onClick = () => this.setContext(DiagramLoadContext, { project, diagrams });
-		return <button onClick={onClick}>Load</button>;
-	}
-
-	renderCreate () {
-		let { project } = this.props;
-		let onClick = () => this.setContext(DiagramCreateContext, { project });
-		return <button onClick={onClick}>Create</button>;
-	}
-
-	renderEdit () {
-		let { diagram } = this.props;
-
-		if (!diagram) return <noscript />;
-
-		let onClick = () => this.setContext(DiagramUpdateContext, { diagram });
-		return <button onClick={onClick}>Edit</button>;
+	select (option) {
+		this.setState({ selected: option });
 	}
 
 	render () {
-		return <div className="menu">
-			{this.renderLoad()}
-			{this.renderCreate()}
-			{this.renderEdit()}
-		</div>;
+		let options = [ OPTIONS.LOAD, OPTIONS.NEW ];
+		if (this.props.diagram) options.push(OPTIONS.EDIT);
+
+		return <Menu options={options}
+					 data={this.props}
+					 select={this.select}
+					 selected={this.state.selected} />;
 	}
+
 }

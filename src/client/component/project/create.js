@@ -19,7 +19,6 @@ export default class ProjectCreateContext extends Component {
 
 	renderForm () {
 		return <div className="form">
-			<h2>Create Project</h2>
 			<label>Name</label>
 			<input ref={(ref) => this.name = ref} />
 			<label>Description</label>

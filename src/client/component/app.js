@@ -14,6 +14,7 @@ export default class App extends StoreComponent {
 		super(props);
 
 		this.connect(props.user);
+		this.connect(props.node);
 		this.connect(props.diagram);
 		this.connect(props.context);
 		this.connect(props.project);
@@ -29,14 +30,14 @@ export default class App extends StoreComponent {
 	 * 	logged in, otherwise the authorization will be shown.
 	 */
 	render () {
-		let { diagram, context, user } = this.state;
+		let { diagram, context, user, nodes, node } = this.state;
 
 		if (user.name == null) {
 			return this.renderApp(<Auth key={0} />);
 		} else {
 			return this.renderApp(
 				<SideBar key={0} {...this.state} />,
-				<Diagram key={1} diagram={diagram} />,
+				<Diagram key={1} diagram={diagram} nodes={nodes} node={node} />,
 				<Context key={2} context={context} />
 			);
 		}

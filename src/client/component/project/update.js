@@ -26,7 +26,6 @@ export default class ProjectUpdateContext extends Component {
 		let { name, description } = this.state;
 
 		return <div className="form">
-			<h2>Edit Project</h2>
 			<label>Name</label>
 			<input value={name} onChange={this.setName} />
 			<label>Description</label>

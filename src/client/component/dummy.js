@@ -1,3 +1,7 @@
-/**
- * Created by alex on 25.11.2015.
- */
+import { React, Componet } from 'ive-f';
+
+export default class Dummy extends Componet {
+	render () {
+		return <noscript />;
+	}
+}

@@ -14,7 +14,6 @@ export default class DiagramUpdateContext extends Component {
 
 	renderForm () {
 		return <div className="form">
-			<h2>Edit Project</h2>
 			<label>Name</label>
 			<input defaultValue={this.defName} ref={(ref) => this.name = ref} />
 			<button onClick={this.update.bind(this)}>Save</button>

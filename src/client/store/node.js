@@ -1,93 +1,82 @@
 import { Store, merge } from 'ive-f';
-import Graph from '../model/graph';
-import * as Actions from '../action/diagram';
+import * as Actions from '../action/node';
 import UID from '../helper/uid';
 
-let DID = new UID();
+let NID = new UID();
 
-let CANVAS_POS = {
+let CONSTRAINTS = {
 	x: 0,
 	y: 0,
 	width: 100,
 	height: 100
 };
 
-let DEFAULT_DIAGRAM = {
-	id: DID.next(),
-	name: '',
-	graph: new Graph()
-};
+let ALL_NODES = [];
 
-export default class DiagramStore extends Store {
-	constructor (diagrams = [], diagram = null) {
-		super({ diagrams, diagram });
+function updateAll (nodes) {
+	ALL_NODES = ALL_NODES.filter(current => {
+		return !contains(nodes, current);
+	}).concat(nodes);
+}
 
-		this.listenTo(Actions.CreateDiagram, this.create);
-		this.listenTo(Actions.LoadDiagram, this.load);
-		this.listenTo(Actions.UpdateDiagram, this.update);
-		this.listenTo(Actions.CreateNode, this.createNode);
-		this.listenTo(Actions.UpdateNode, this.updateNode);
-		this.listenTo(Actions.CreateEdge, this.createEdge);
+function contains (nodes, node) {
+	for (let i = 0; i < nodes.length; i++) {
+		if (nodes[i].id == node.id) return true;
+	}
+	return false;
+}
+
+export default class NodeStore extends Store {
+	constructor (nodes = [], node = null) {
+		super({ nodes, node });
+
+		this.listenTo(Actions.LoadNodes, this.load);
+		this.listenTo(Actions.CreateNode, this.create);
+		this.listenTo(Actions.UpdateNode, this.update);
 		this.listenTo(Actions.SetPosition, this.setPosition);
-
-		this.create({ projectId: 0, name: 'diag1' });
-	}
-
-	create (data = null) {
-		if (data) {
-			this.state.diagram = merge(DEFAULT_DIAGRAM, data);
-			this.state.diagrams.push(this.state.diagram);
-			this.notify();
-		}
-	}
-
-	update (data = null) {
-		if (data != null) {
-			this.state.diagram = merge(this.state.diagram, data);
-			this.notify();
-		}
 	}
 
 	load (data = { id: null }) {
-		this.state.diagram = this.state.diagrams.filter(current => {
-			return current.id == data.id;
-		})[0];
+		this.state.nodes = ALL_NODES.filter(current => {
+			return current.diagramId == data.id;
+		});
+		this.state.node = null;
 		this.notify();
 	}
 
-	createNode (data = { x: 0, y: 0, type: null, data: {} }) {
-		data.x -= CANVAS_POS.x;
-		data.y -= CANVAS_POS.y;
-		let width = 200, height = 120;
+	create (data = { x: 0, y: 0, width: 0, height: 0 }) {
+		data.x -= CONSTRAINTS.x;
+		data.y -= CONSTRAINTS.y;
+		if (!data.width) data.width = 160; // make constant
+		if (!data.height) data.height = 120; // make constant
 
-		if (this.isInside(data.x, data.y, width, height)) {
-			this.state.diagram.graph.createNode(merge(data, { width, height }));
+		if (this.isInside(data.x, data.y, data.width, data.height)) {
+			data.id = NID.next();
+			this.state.nodes.push(data);
+			ALL_NODES.push(data);
 			this.notify();
 		}
 	}
 
-	updateNode (data = { id: -1 }) {
-		let { diagram } = this.state;
-		let { x, y, width, height } = data;
-
-		if (diagram && this.isInside(x, y, width, height)) {
-			diagram.graph.updateNode(data);
-			this.notify();
-		}
-	}
-
-	isInside (x, y, width, height) {
-		return x > 0 && x + width - 10 < CANVAS_POS.width &&
-			y > 0 && y + height - 10 < CANVAS_POS.height;
-	}
-
-	createEdge (source, target, sPos, tPos, type) {
-		// TODO get start and end position of the edge
-		this.state.diagram.createEdge(source, target, sPos, tPos, type);
+	update (node = null) {
+		this.state.nodes = this.state.nodes.map(current => {
+			if (current.id == node.id) {
+				this.state.node = node;
+				return node;
+			}
+			return current;
+		});
+		updateAll(this.state.nodes);
 		this.notify();
 	}
 
 	setPosition (data = { x: 0, y: 0, width: 100, height: 100 }) {
-		CANVAS_POS = data;
+		CONSTRAINTS = data;
 	}
+
+	isInside (x, y, width, height) {
+		return x > 0 && x + width - 10 < CONSTRAINTS.width &&
+			   y > 0 && y + height - 10 < CONSTRAINTS.height;
+	}
+
 }

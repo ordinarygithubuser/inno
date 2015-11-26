@@ -1,7 +1,7 @@
 import { React, Component } from 'ive-f';
 import { CreateDiagram } from '../../action/diagram';
 
-export default class ProjectCreateContext extends Component {
+export default class DiagramCreateContext extends Component {
 	constructor (props) {
 		super(props);
 		this.name = null;
@@ -17,7 +17,6 @@ export default class ProjectCreateContext extends Component {
 
 	renderForm () {
 		return <div className="form">
-			<h2>Create Diagram</h2>
 			<label>Name</label>
 			<input ref={(ref) => this.name = ref} />
 			<button onClick={this.create.bind(this)}>Create</button>

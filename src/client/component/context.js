@@ -6,6 +6,8 @@ export default class Context extends Component {
 	}
 
 	renderComponent (context) {
+		if (!context) return <noscript />;
+
 		let { Component, data } = context;
 		if (Component) {
 			return <Component {...data} />;

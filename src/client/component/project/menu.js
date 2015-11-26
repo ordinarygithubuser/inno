@@ -1,45 +1,51 @@
-import { React, StoreComponent } from 'ive-f';
+import { React, Component } from 'ive-f';
+import Menu from '../menu';
+import Properties from './properties';
 import ProjectLoadContext from './load';
 import ProjectCreateContext from './create';
 import ProjectUpdateContext from './update';
-import { SetContext } from '../../action/context';
 
-// TODO create context actions
+function Option (name, icon, component, focus = true) {
+	return { name, icon, component, focus };
+}
 
-export default class ProjectMenu extends StoreComponent {
+let OPTIONS = {
+	LOAD: Option('Load', 'list', ProjectLoadContext),
+	NEW: Option('New', 'plus-circle', ProjectCreateContext),
+	EDIT: Option('Edit', 'pencil', ProjectUpdateContext),
+	PROPS: Option('Properties', 'gear', Properties),
+	GENERATE: Option('Generate', 'play-circle', Properties, false)
+};
+
+export default class ProjectMenu extends Component {
 	constructor (props) {
 		super(props);
+		this.own('select');
+		this.state = {
+			selected: OPTIONS.LOAD
+		}
 	}
 
-	setContext (Component, data) {
-		SetContext.trigger({ Component, data });
-	}
-
-	renderLoad () {
-		let { projects } = this.props;
-		let onClick = () => this.setContext(ProjectLoadContext, { projects });
-		return <button onClick={onClick}>Load</button>;
-	}
-
-	renderCreate () {
-		let onClick = () => this.setContext(ProjectCreateContext, {name: ''});
-		return <button onClick={onClick}>Create</button>;
-	}
-
-	renderEdit () {
-		let { project } = this.props;
-
-		if (!project) return <noscript />;
-
-		let onClick = () => this.setContext(ProjectUpdateContext, { project });
-		return <button onClick={onClick}>Edit</button>;
+	select (option) {
+		if (option.name == 'Generate') {
+			alert('generate');
+		} else {
+			this.setState({ selected: option });
+		}
 	}
 
 	render () {
-		return <div className="menu">
-			{this.renderLoad()}
-			{this.renderCreate()}
-			{this.renderEdit()}
-		</div>;
+		let options = [ OPTIONS.LOAD, OPTIONS.NEW ];
+		if (this.props.project) {
+			options.push(OPTIONS.EDIT);
+			options.push(OPTIONS.GENERATE);
+		}
+		options.push(OPTIONS.PROPS);
+
+		return <Menu options={options}
+					 data={this.props}
+					 select={this.select}
+					 selected={this.state.selected} />;
 	}
+
 }

@@ -2,23 +2,11 @@ import { React, Component } from 'ive-f';
 import Tabs from './tabs';
 import ProjectMenu from './project/menu';
 import DiagramMenu from './diagram/menu';
-import ToolMenu from './tools/menu';
+import ComponentMenu from './component/menu';
 
-let Project = (data) => {
-	let title = 'Project';
-	if (data.project) title += ' - ' + data.project.name;
-	return { id: 0, title: title, screen: ProjectMenu, data: data };
-};
-
-let Diagram = (data) => {
-	let title = 'Diagram';
-	if (data.diagram) title += ' - ' + data.diagram.name;
-	return { id: 1, title: title, screen: DiagramMenu, data: data }
-};
-
-let Tools = (data) => {
-	return { id: 2, title: 'Tools', screen: ToolMenu, data: data }
-};
+function Tab (id, title, screen, data) {
+	return { id, title, screen, data };
+}
 
 /**
  * Exposes options to manipulate a the Diagram and
@@ -52,15 +40,16 @@ export default class SideBar extends Component {
 	 */
 	render () {
 		let { tabStates } = this.state;
-		let props = this.props;
-		let tabs = [Project(props)];
+		let { project, diagram } = this.props;
+		let tabs = [];
 
-		if (this.props.project) {
-			tabs.push(Diagram(props));
-		}
+		tabs.push(Tab(0, project ? project.name : 'No Project selected', ProjectMenu, this.props));
 
-		if (this.props.diagram) {
-			tabs.push(Tools(props));
+		if (project) {
+			tabs.push(Tab(1, diagram ? diagram.name : 'No Diagram selected', DiagramMenu, this.props));
+			if (diagram) {
+				tabs.push(Tab(2, 'Components', ComponentMenu, this.props));
+			}
 		}
 
 		return <div className="side">

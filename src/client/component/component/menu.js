@@ -40,7 +40,7 @@ export default class ComponentMenu extends Component {
 	}
 
 	render () {
-		return <div className="tools">
+		return <div className="components">
 			{this.createDragItem('Action', 'node')}
 			{this.createDragItem('Component', 'node')}
 			{this.createDragItem('Store', 'node')}

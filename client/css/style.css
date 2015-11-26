@@ -25,43 +25,22 @@ h2 {
     margin: 0 0 10px;
 }
 
-input {
-    padding: 4px;
-}
-
 button {
-    color: rgb(71, 71, 71);
     height: 32px;
-    border-radius: 4px;
+    border-radius: 2px;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
     padding: 0 13px;
     font-weight: bold;
-    border: 1px solid #c5c5c5;
-    border-bottom-color: #bcbcbc;
-    background-color: #fafafa;
-    background-image: -webkit-linear-gradient(top, #fafafa 2%, #efefef 98%);
-    background-image: linear-gradient(to bottom,#fafafa 2%, #efefef 98%);
+    background-color: white;
+    color: #414B56;
+    border: 1px solid white;
     margin-right: 10px;
 }
 
-button.primary {
-    color: #ecf2f8;
-    border: 1px solid #1362b1;
-    border-top-color: #156ab3;
-    border-bottom-color: #1156a8;
-    box-shadow: inset 0 1px 0 #4d98e6, inset 0 -1px 0 #166bca, 0 2px 3px rgba(0, 0, 0, 0.05);
-    background-color: #197de1;
-    background-image: -webkit-linear-gradient(top, #1b87e3 2%, #166ed5 98%);
-    background-image: linear-gradient(to bottom,#1b87e3 2%, #166ed5 98%);
-}
-
-button:hover, .button:hover {
+button:hover {
     cursor: pointer;
-}
-
-.button:hover {
-    color: #197de1;
-    border-color: #197de1;
+    background-color: #414B56;
+    color: white;
 }
 
 .app {
@@ -88,7 +67,7 @@ button:hover, .button:hover {
     margin: 10px 0;
     padding: 0 3px;
     border: 1px solid rgb(213, 213, 213);
-    border-radius: 4px;
+    border-radius: 2px;
     font-weight: bold;
     background: rgb(255, 255, 255);
     box-shadow: inset rgba(0, 0, 0, 0.0470588) 0 2px 3px 0;
@@ -143,7 +122,7 @@ table tbody tr.active td {
 
 .icon-input {
     border: 1px solid rgb(213, 213, 213);
-    border-radius: 4px;
+    border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.0470588) 0 2px 3px 0;
     padding: 8px;
     margin-bottom: 10px;
@@ -166,7 +145,7 @@ table tbody tr.active td {
     display: flex;
     flex-flow: row nowrap;
     border: 1px solid rgb(213, 213, 213);
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .dropdown .inner {
@@ -218,7 +197,7 @@ table tbody tr.active td {
     font-size: 14px;
     padding: 5px;
     margin: 5px;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 .dropdown .options .option span {
     font-size: 16px;
@@ -253,7 +232,7 @@ i.button {
     display: flex;
     flex-flow: column nowrap;
     border: 1px solid white;
-    border-radius: 3px;
+    border-radius: 2px;
     margin-bottom: 10px;
 }
 
@@ -267,7 +246,6 @@ i.button {
 .tab .inner {
     display: flex;
     flex-flow: row nowrap;
-    padding: 5px;
 }
 
 .menu {
@@ -276,13 +254,39 @@ i.button {
     flex-grow: 1;
 }
 
-.menu button {
+.menu .options {
     display: flex;
+    flex-flow: row nowrap;
     flex-grow: 1;
+    background: white;
+}
+
+.menu .options .option {
+    display: flex;
     background: none;
     border: none;
+    color: #414B56;
+    padding: 5px 10px;
+}
+
+.menu .options .option:hover {
+    cursor: pointer;
+}
+
+.menu .options .selected {
     color: white;
-    margin: 0;
+    background: #414B56;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.menu .options .selected:hover {
+    cursor: default
+}
+
+.menu .active-option {
+    margin-top: 5px;
+    padding: 10px;
 }
 
 .form {
@@ -290,11 +294,70 @@ i.button {
     flex-flow: column nowrap;
 }
 
-.form label, .form input, .form textarea {
+.form label, .form input, .form textarea, .form select {
+    display: flex;
+    flex-grow: 1;
     margin-bottom: 10px;
+    border-radius: 2px;
+    border: none;
+}
+
+.form input, .form select {
+    height: 30px;
+    padding: 2px 6px;
+}
+
+.form textarea {
+    padding: 2px 6px;
+    resize: vertical;
+}
+
+.form label {
+    margin-bottom: 5px;
 }
 
 .form button {
     margin-top: 5px;
-    width: 100px;
+    width: 110px;
+}
+
+.list .item {
+    padding: 5px 10px;
+    background: white;
+    border: 1px solid white;
+    color: #414B56;
+}
+
+.list .item:first-of-type {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.list .item:last-of-type {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.list .item:hover {
+    background: #414B56;
+    color: white;
+    cursor: pointer;
+}
+
+.list .item.selected {
+    font-weight: bold;
+    background-image: linear-gradient(to bottom,rgb(27, 135, 227) 2%, rgb(22, 110, 213) 98%);
+    color: white;
+}
+
+.list .item.selected:hover {
+    cursor: default;
+}
+
+.options .option:hover {
+    color: rgb(27, 135, 227);
+}
+
+.options .option.selected:hover {
+    color: white;
 }
