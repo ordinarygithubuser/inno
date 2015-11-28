@@ -2,6 +2,13 @@ import { React, Component } from 'ive-f';
 import { CreateNode } from '../../action/node';
 import Draggable from '../draggable';
 
+function Item (name, type) {
+	return { name, type };
+}
+
+function ClientItem (name) { return Item(name, 'Client') }
+function ServerItem (name) { return Item(name, 'Server') }
+
 class DragItem extends Component {
 	constructor (props) {
 		super(props);
@@ -9,7 +16,9 @@ class DragItem extends Component {
 	}
 
 	render () {
-		return <div className="node">{this.props.name}</div>;
+		return <div key={this.props.name} className="node">
+			{this.props.name}
+		</div>;
 	}
 }
 
@@ -34,23 +43,44 @@ export default class ComponentMenu extends Component {
 		}
 	}
 
-	createDragItem (name, type) {
-		let Comp = Draggable(DragItem, this.onDrag, this.onDrop);
-		return <Comp name={name} type={type} />;
+	renderClient () {
+		// TODO: list Components
+		return this.renderDragItems(
+			ClientItem('Action'), ClientItem('Component'),
+			ClientItem('Store'), ClientItem('Transaction')
+		);
+	}
+
+	renderServer () {
+		return this.renderDragItems(
+			ServerItem('Database'), ServerItem('Service'),
+			ServerItem('Server'), ServerItem('Table')
+		);
+	}
+
+	renderComponent () {
+		return [];
+	}
+
+	renderDragItems (...items) {
+		return items.map((item, key) => {
+			let Comp = Draggable(DragItem, this.onDrag, this.onDrop);
+			return <Comp name={item.name} type={item.type} key={key} />;
+		})
+	}
+
+	renderTypeMenu () {
+		switch (this.props.diagram.type) {
+			case 'Client': return this.renderClient();
+			case 'Server': return this.renderServer();
+			case 'Component': return this.renderComponent();
+			default: return <noscript />;
+		}
 	}
 
 	render () {
 		return <div className="components">
-            <label>Client</label>
-            {this.createDragItem('Action', 'node')}
-            {this.createDragItem('Component', 'node')}
-			{this.createDragItem('Store', 'node')}
-            {this.createDragItem('Transaction', 'node')}
-            <label>Server</label>
-            {this.createDragItem('Database', 'node')}
-            {this.createDragItem('Service', 'node')}
-			{this.createDragItem('Server', 'node')}
-			{this.createDragItem('Table', 'node')}
+			{this.renderTypeMenu()}
 		</div>;
 	}
 }

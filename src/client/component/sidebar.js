@@ -48,7 +48,7 @@ export default class SideBar extends Component {
 		if (project) {
 			tabs.push(Tab(1, diagram ? diagram.name : 'No Diagram selected', DiagramMenu, this.props));
 			if (diagram) {
-				tabs.push(Tab(2, 'Components', ComponentMenu, this.props));
+				tabs.push(Tab(2, `Components [${diagram.type}]`, ComponentMenu, this.props));
 			}
 		}
 

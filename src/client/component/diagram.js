@@ -1,8 +1,9 @@
 import { React, Component, getNode, merge } from 'ive-f';
-import UpdateNodeContext from './node/update';
-import NodeEdgeContext from './node/edge';
 import { SetPosition, UpdateNode, SetNode } from '../action/node';
 import { SetContext } from '../action/context';
+
+import UpdateNodeContext from './node/update';
+import NodeEdgeContext from './node/edge';
 
 /**
  * A diagram represents a graph of arbitrary connected
@@ -32,8 +33,9 @@ export default class Diagram extends Component {
 		}
 
 		if (this.props.diagram && context) {
-			this.renderTitle();
-			this.renderGraph();
+			this.renderTitle(context);
+			this.renderNodes(context);
+			this.renderEdges(context);
 		}
 	}
 
@@ -64,7 +66,7 @@ export default class Diagram extends Component {
 			if (node.x <= x && node.y <= y && node.x + node.width >= x && node.y + node.width >= y) {
 				if (event.ctrlKey && this.props.node) {
 					SetContext.trigger({ Component: NodeEdgeContext, data: {
-						source: this.props.node, target: node
+						source: this.props.node, target: node, diagram: this.props.diagram
 					} });
 				} else {
 					getNode(this).addEventListener('mousemove', this.handleMouseMove);
@@ -96,8 +98,7 @@ export default class Diagram extends Component {
 		this.setState({ dragging: false, mousePos: null });
 	}
 
-	renderTitle () {
-		let { context } = this.state;
+	renderTitle (context) {
 		let { diagram } = this.props;
 
 		context.save();
@@ -106,18 +107,22 @@ export default class Diagram extends Component {
 		context.restore();
 	}
 
-	renderGraph () {
-		let { context } = this.state;
-		let { edges, nodes, node, diagram } = this.props;
+	getNode (nodeId) {
+		return this.props.nodes.filter(node => {
+			return node.id == nodeId;
+		})[0];
+	}
+
+	renderNodes (context) {
+		let { nodes, node, diagram } = this.props;
 
 		context.save();
 		context.font = '15px arial';
 		context.lineWidth = 0.5;
 
-        // TODO Auslagern!
-        nodes.filter(node => {
-            return node.diagramId == diagram.id;
-        }).map(current => {
+		nodes.filter(node => {
+			return node.diagramId == diagram.id;
+		}).map(current => {
 			let { id, name, x, y, width, height, type } = current;
 
 			if (x % 1 == 0) x += 0.5;
@@ -141,29 +146,34 @@ export default class Diagram extends Component {
 			context.closePath();
 		});
 		context.restore();
+	}
 
-        context.save();
-        context.strokeStyle = 'rgb(100, 100, 100)';
-        // TODO: auslagern!
-        edges.map(edge => {
-            let { source, target } = edge;
-            context.beginPath();
-            context.moveTo(source.x, source.y);
-            context.lineTo(target.x, target.y);
-            context.stroke();
-            context.closePath();
-        });
-        context.restore();
-    }
+	renderEdges (context) {
+		let { edges, diagram } = this.props;
 
-	/**
-	 * TODO canvas width and height
-	 * TODO render elements received from props (graph)
-	 */
+		context.save();
+		context.strokeStyle = 'rgb(100, 100, 100)';
+
+		edges.filter(edge => {
+			return edge.diagramId == diagram.id;
+		}).map(edge => {
+			let source = this.getNode(edge.source.id);
+			let target = this.getNode(edge.target.id);
+			context.beginPath();
+			context.moveTo(source.x, source.y);
+			context.lineTo(target.x, target.y);
+			context.stroke();
+			context.closePath();
+		});
+		context.restore();
+	}
+
 	render () {
 		let { style } = this.state;
-		let { width, height } = style;
 
-		return <canvas className="diagram" style={style} width={width} height={height} />
+		return <canvas className="diagram"
+					   style={style}
+					   width={style.width}
+					   height={style.height} />
 	}
 }

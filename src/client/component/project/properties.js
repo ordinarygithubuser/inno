@@ -3,6 +3,7 @@ import { Lang, Mode } from '../../const/conf';
 import * as Actions from '../../action/conf';
 
 export default class Properties extends Component {
+
 	setLanguage (e) {
 	    Actions.SetLanguage.trigger(e.target.value);
     }
@@ -18,7 +19,7 @@ export default class Properties extends Component {
 	}
 
 	render () {
-		let { lang, model } = this.props.conf;
+		let { lang, mode } = this.props.conf;
 
 		return <div className="generate form">
 			<label>Language</label>
@@ -26,10 +27,9 @@ export default class Properties extends Component {
 				{this.renderSelection(Lang)}
 			</select>
 			<label>Model File</label>
-			<select value={model} onChange={this.setModel.bind(this)}>
+			<select value={mode} onChange={this.setModel.bind(this)}>
 				{this.renderSelection(Mode)}
 			</select>
-			<button>Save</button>
 		</div>;
 	}
 }

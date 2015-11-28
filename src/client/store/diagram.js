@@ -12,7 +12,7 @@ export default class DiagramStore extends Store {
 		this.listenTo(Actions.LoadDiagram, this.load);
 		this.listenTo(Actions.UpdateDiagram, this.update);
 
-		this.create({ projectId: 0, name: 'diag1' });
+		this.create({ projectId: 0, name: 'diag1', type: 'Client' });
 	}
 
 	create (data = null) {

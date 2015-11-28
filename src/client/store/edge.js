@@ -13,8 +13,8 @@ export default class EdgeStore extends Store {
 		this.listenTo(Actions.DeleteEdge, this.remove);
 	}
 
-	create (data = { source: null, target: null }) {
-		if (data.source && data.target) {
+	create (data = { diagramId: -1, source: null, target: null }) {
+		if (data.diagramId > -1 && data.source && data.target) {
             if (!data.width) data.width = 1;
             if (!data.type) data.type = 'default';
             this.state.edge = merge({ id: EID.next() }, data);

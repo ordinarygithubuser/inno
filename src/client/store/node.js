@@ -42,8 +42,8 @@ export default class NodeStore extends Store {
 	update (node = null) {
 		this.state.nodes = this.state.nodes.map(current => {
 			if (current.id == node.id) {
-				this.state.node = node;
-				return node;
+				current = merge(current, node);
+				this.state.node = current;
 			}
 			return current;
 		});

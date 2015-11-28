@@ -13,7 +13,12 @@ export default class NodeEdgeContext extends Component {
 	}
 
 	create () {
-	    CreateEdge.trigger(this.state.nodes);
+		let { diagram } = this.props;
+		let { source, target } = this.state.nodes;
+
+	    CreateEdge.trigger({
+			diagramId: diagram.id, source, target
+		});
     }
 
 	switchNodes (e) {
